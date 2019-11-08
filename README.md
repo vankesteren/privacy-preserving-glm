@@ -7,3 +7,5 @@ Code and data for the submitted manuscript _Privacy-preserving generalized linea
    1. [Forest fires](https://archive.ics.uci.edu/ml/datasets/forest+fires)
    2. [Hepatocellular carcinoma](https://archive.ics.uci.edu/ml/datasets/HCC+Survival)
    3. [Diabetes](https://archive.ics.uci.edu/ml/datasets/diabetes)
+   
+I suggest using the `.Rproj` files to open the folders as an `R` project in `RStudio`, where possible.
