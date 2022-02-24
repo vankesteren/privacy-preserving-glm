@@ -1,5 +1,5 @@
 # Forest fires analysis script (local version)
-# 2019-10-24
+# 2021-02-23
 # Erik-Jan van Kesteren
 # Chang Sun
 # Lianne Ippel 
@@ -39,3 +39,10 @@ ggplot(df, aes(x = param, y = coef, ymin = lower, ymax = upper, shape = method))
   labs(y = "Coefficient value (95% CI)", x = "", shape = "Method")
 
 firaSave("./img/forest_fires.pdf", width = 9, height = 4)
+
+# mean abs bias %
+mean(abs((result$full$se - result$priv$se) / result$full$se))*100
+
+# mean squared error comparison
+mean((y - cbind(X_a, X_b) %*% result$full$coef))
+mean((y - cbind(X_a, X_b) %*% result$priv$coef))

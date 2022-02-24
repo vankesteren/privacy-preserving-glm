@@ -1,5 +1,5 @@
 # Diabetes analysis script (local version)
-# 2019-10-24
+# 2021-02-23
 # Erik-Jan van Kesteren
 # Chang Sun
 # Lianne Ippel 
@@ -44,4 +44,11 @@ firaSave("./img/diabetes.pdf", width = 9, height = 5)
 summary(glm(y~X_b, family = "binomial"))$coefficients[13,] # significant positive effect
 summary(glm(y~X_a+X_b+0, family = "binomial"))$coefficients[41,] # significant negative effect
 
- 
+# mean abs bias %
+mean(abs((result$full$se - result$priv$se) / result$full$se))*100 # 0.5091578
+
+
+# AUC comparison
+library(hmeasure)
+HMeasure(y, binomial()$linkinv(cbind(X_a, X_b) %*% result$full$coef))$metrics # AUC 0.6510909
+HMeasure(y, binomial()$linkinv(cbind(X_a, X_b) %*% result$priv$coef))$metrics # AUC 0.6510909

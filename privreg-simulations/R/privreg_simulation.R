@@ -58,12 +58,6 @@ for (cnd in 1:nrow(conditions)) {
     data <- do.call(gen_dat, conditions[cnd,])
     res <- privreg_local(data$y, data$alice, data$bob, family = fam, maxit = 3e4,
                          debug = FALSE, tol = 1e-11)
-    
-    # add true stuff
-    X <- cbind(data$alice, data$bob)
-    eta <- X %*% data$beta
-    w <- c(sqrt(fam$mu.eta(eta)^2/fam$variance(fam$linkinv(eta))))
-    res$true <- list(coef = data$beta, se = sqrt(diag(solve(crossprod(X * w)))))
     return(res)
   }, cl = cl)
 }

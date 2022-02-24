@@ -1,5 +1,5 @@
 # HCC analysis script (local version)
-# 2019-10-24
+# 2021-02-23
 # Erik-Jan van Kesteren
 # Chang Sun
 # Lianne Ippel 
@@ -37,3 +37,12 @@ ggplot(df, aes(x = param, y = coef, ymin = lower, ymax = upper, shape = method))
   labs(y = "Coefficient value (95% CI)", x = "", shape = "Method")
 
 firaSave("./img/carcinoma.pdf", width = 9, height = 4.2)
+
+# mean abs bias %
+mean(abs((result$full$se - result$priv$se) / result$full$se))*100
+
+
+# AUC comparison
+library(hmeasure)
+HMeasure(y, binomial()$linkinv(cbind(X_a, X_b) %*% result$full$coef))$metrics # AUC 0.9590725
+HMeasure(y, binomial()$linkinv(cbind(X_a, X_b) %*% result$priv$coef))$metrics # AUC 0.9590725
